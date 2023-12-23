@@ -9,7 +9,7 @@ def get_project_path():
 
 def sep(path,add_sep_before=False,add_sep_after=False):
     '''
-    是否在不同的操作系统中加分隔符
+    是否在不同的操作系统中加分隔符 /config/
     '''
     all_path=os.sep.join(path)
     if add_sep_before:
