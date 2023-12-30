@@ -284,3 +284,167 @@ class ObjectMap:
             raise Exception("元素填值失败")
 
         return True
+    def element_click(
+            self,
+            driver,
+            locate_type,
+            locator_expression,
+            locate_type_disappear=None,
+            locator_expression_disappear=None,
+            locate_type_appear=None,
+            locator_expression_appear=None, timeout=30):
+        """
+        元素点击
+        :param driver:
+        :param locate_type:
+        :param locator_expression:
+        :param locate_type_disappear:
+        :param locator_expression_disappear:
+        :param locate_type_appear:
+        :param locator_expression_appear:
+        :param timeout:
+        :return:
+        """
+        # 判断元素是否可见
+        element = self.element_appear(
+            driver,
+            locate_type=locate_type,
+            locator_expression=locator_expression,
+            timeout=timeout
+        )
+        try:
+            # 点击元素
+            element.click()
+        except StaleElementReferenceException:
+            self.wait_for_ready_state_complete(driver=driver)
+            time.sleep(0.06)
+            element = self.element_appear(
+                driver,
+                locate_type=locate_type,
+                locator_expression=locator_expression,
+                timeout=timeout
+            )
+            element.click()
+        except Exception as e:
+            print("页面出现异常，元素不可点击", e)
+            return False
+        try:
+            # 点击元素后元素出现或消失
+            self.element_appear(
+                driver,
+                locate_type=locate_type_appear,
+                locator_expression=locator_expression_appear,
+            )
+            self.element_disappear(
+                driver,
+                locate_type=locate_type_disappear,
+                locator_expression=locator_expression_disappear,
+            )
+        except Exception as e:
+            print("等待元素出现或元素消失失败", e)
+            return False
+
+        return True
+
+    def upload(self, driver, locate_type, locator_expression, file_path):
+        """
+        文件上传
+        :param driver:
+        :param locate_type:
+        :param locator_expression:
+        :param file_path:
+        :return:
+        """
+        element = self.element_get(driver, locate_type, locator_expression)
+        return element.send_keys(file_path)
+
+    def switch_into_frame(self, driver, locate_iframe_type, locate_iframe_expression):
+        """
+        进入iframe
+        :param driver:
+        :param locate_iframe_type:
+        :param locate_iframe_expression:
+        :return:
+        """
+        iframe = self.element_get(driver, locate_iframe_type, locate_iframe_expression)
+        driver.switch_to.frame(iframe)
+
+    def switch_from_iframe_to_content(self, driver):
+        """
+        从iframe切回主文档
+        :param driver:
+        :return:
+        """
+        driver.switch_to.parent_frame()
+
+    def switch_window_2_latest_handle(self, driver):
+        """
+        句柄切换窗口到最新的窗口
+        :param driver:
+        :return:
+        """
+        window_handles = driver.window_handles
+        driver.switch_to.window(window_handles[-1])
+
+    def mouse_hover(self, driver, locate_type, locator_expression):
+        """
+        作业内容，鼠标悬浮到指定元素
+        :param driver:
+        :param locate_type:
+        :param locator_expression:
+        :return:
+        """
+        element = self.element_get(driver, locate_type, locator_expression)
+        ActionChains(driver).move_to_element(element).perform()
+
+    def find_img_in_source(self, driver, img_name):
+        """
+        截图并在截图中查找图片
+        :param driver:
+        :param img_name:
+        :return:
+        """
+        # 截图后图片保存的路径
+        source_img_path = get_project_path() + sep(["img", "source_img", img_name], add_sep_before=True)
+        # 需要查找的图片的路径
+        search_img_path = get_project_path() + sep(["img", "assert_img", img_name], add_sep_before=True)
+        # 截图并保存图片
+        driver.get_screenshot_as_file(source_img_path)
+        time.sleep(3)
+        add_img_path_2_report(source_img_path, "原图")
+        add_img_path_2_report(search_img_path, "需要查找的图")
+        # 在原图中查找是否有指定图片，返回信心值
+        confidence = FindImg().get_confidence(source_img_path, search_img_path)
+        return confidence
+
+    def element_screenshot(self, driver, locate_type, locator_expression):
+        """
+        元素截图
+        :param driver:
+        :param locate_type:
+        :param locator_expression:
+        :return:
+        """
+        ele_name = datetime.datetime.now().strftime("%Y%m%d%H%M%S") + ".png"
+        ele_img_dir_path = get_project_path() + sep(["img", "ele_img"], add_sep_before=True, add_sep_after=True)
+        if not os.path.exists(ele_img_dir_path):
+            os.mkdir(ele_img_dir_path)
+        ele_img_path = ele_img_dir_path + ele_name
+        self.element_get(driver, locate_type, locator_expression).screenshot(ele_img_path)
+        return ele_img_path
+
+    def scroll_to_element(self, driver, locate_type, locator_expression):
+        """
+        滚动到元素
+        :param driver:
+        :param locate_type:
+        :param locator_expression:
+        :return:
+        """
+        ele = self.element_get(driver, locate_type, locator_expression)
+        driver.execute_script("arguments[0].scrollIntoView", ele)
+        return True
+
+
+if __name__ == '__main__':
+    ObjectMap().element_get()

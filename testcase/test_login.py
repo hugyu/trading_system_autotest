@@ -5,10 +5,7 @@ from page.LoginPage import LoginPage
 class TestLogin():
     def test_login(self):
         driver=DriverConfig.driver_config()
-        driver.get('http://www.tcpjwtester.top')
-        LoginPage().login_input_value(driver,'用户名','周杰伦')
-        sleep(1)
-        LoginPage().login_input_value(driver,'密码','1234abcd!')
-        sleep(1)
-        LoginPage().click_login(driver,'登录')
-        sleep(2)
+        LoginPage().login(driver,"jay")
+        sleep(3)        
+if __name__ == '__main__':
+    TestLogin().test_login()
