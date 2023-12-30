@@ -89,7 +89,7 @@ class ObjectMap:
                 time.sleep(0.1)
             raise Exception("打开网页时，页面元素在%s秒仍然没有完全加载" % timeout)
 
-    def element_disapper(self,
+    def element_disappear(self,
                          driver,
                          locate_type,
                          locate_expression,
@@ -338,7 +338,7 @@ class ObjectMap:
             self.element_disappear(
                 driver,
                 locate_type=locate_type_disappear,
-                locator_expression=locator_expression_disappear,
+                locate_expression=locator_expression_disappear,
             )
         except Exception as e:
             print("等待元素出现或元素消失失败", e)
