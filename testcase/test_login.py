@@ -4,7 +4,7 @@ from page.LoginPage import LoginPage
 
 class TestLogin():
     def test_login(self):
-        driver=DriverConfig.driver_config()
+        driver=DriverConfig().driver_config()
         LoginPage().login(driver,"jay")
         sleep(3)        
 if __name__ == '__main__':

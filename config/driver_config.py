@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 class DriverConfig:
-    def driver_config():
+    def driver_config(self):
         """
         浏览器驱动
         :return:

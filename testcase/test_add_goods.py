@@ -8,7 +8,7 @@ from config.driver_config import DriverConfig
 class TestAddGoods:
 
     def test_add_goods_001(self):
-        driver = DriverConfig.driver_config()
+        driver = DriverConfig().driver_config()
         LoginPage().login(driver, "jay")
         LeftMenuPage().click_level_one_menu(driver, "产品")
         sleep(1)
