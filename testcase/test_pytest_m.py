@@ -21,20 +21,35 @@ class TestPytestMClass:
     -q 显示简洁的执行信息
     pytest -q -m  baidu
     """
+    
+    """
+    fixture的用途:包裹测试用例
+    @pytest.fixture()
+    将fixture名作为用例的函数
+    作用范围:session class module function
+    """ 
+    @pytest.fixture(scope="class")
+    def scope_class(self):
+        print("我是class 级别，我只执行一次")
+    @pytest.fixture(scope="function")
+    def driver(self):
+        get_driver=DriverConfig().driver_config()
+        return get_driver
+    
     @pytest.mark.bing
     # @pytest.mark.bing2
-    def test_open_bing(self):
-        driver=DriverConfig().driver_config()
+    def test_open_bing(self,driver,scope_class):
+        # driver=DriverConfig().driver_config()
         driver.get("https://cn.bing.com")
         sleep(3)
     @pytest.mark.baidu
-    def test_open_baidu(self):
+    def test_open_baidu(self,driver,scope_class):
         print("test_open_baidu")
-        driver=DriverConfig().driver_config()
+        # driver=DriverConfig().driver_config()
         driver.get("https://www.baidu.com")
         sleep(3)
     @pytest.mark.google
-    def test_open_google(self):
-        driver=DriverConfig().driver_config()
+    def test_open_google(self,driver,scope_class):
+        # driver=DriverConfig().driver_config()
         driver.get("https://www.google.com")
         sleep(3)
