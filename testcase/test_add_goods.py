@@ -1,3 +1,4 @@
+import pytest
 from time import sleep
 from page.LoginPage import LoginPage
 from page.LeftMenuPage import LeftMenuPage
@@ -6,9 +7,12 @@ from config.driver_config import DriverConfig
 
 
 class TestAddGoods:
-
-    def test_add_goods_001(self):
-        driver = DriverConfig().driver_config()
+    @pytest.fixture()
+    def driver(self):
+        get_driver=DriverConfig().driver_config()
+        yield get_driver
+        get_driver.quit()
+    def test_add_goods_001(self,driver):
         LoginPage().login(driver, "jay")
         LeftMenuPage().click_level_one_menu(driver, "产品")
         sleep(1)
