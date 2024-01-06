@@ -4,7 +4,7 @@ user:
     password: 1234abcd!
   william:
     username: william
-    password: 123456abcd!
+    password: 1234abcd!
 
 
 url: http://www.tcpjwtester.top
