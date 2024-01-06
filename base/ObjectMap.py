@@ -362,8 +362,8 @@ class ObjectMap:
         """
         进入iframe
         :param driver:
-        :param locate_iframe_type:
-        :param locate_iframe_expression:
+        :param locate_iframe_type:定位iframe方式
+        :param locate_iframe_expression:定位iframe的表达式
         :return:
         """
         iframe = self.element_get(driver, locate_iframe_type, locate_iframe_expression)
