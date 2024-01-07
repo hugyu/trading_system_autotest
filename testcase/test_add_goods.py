@@ -1,17 +1,17 @@
-import pytest
+# import pytest
 from time import sleep
 from page.LoginPage import LoginPage
 from page.LeftMenuPage import LeftMenuPage
 from page.GoodsPage import GoodsPage
-from config.driver_config import DriverConfig
+# from config.driver_config import DriverConfig
 
 
 class TestAddGoods:
-    @pytest.fixture()
-    def driver(self):
-        get_driver=DriverConfig().driver_config()
-        yield get_driver
-        get_driver.quit()
+    # @pytest.fixture()
+    # def driver(self):
+    #     get_driver=DriverConfig().driver_config()
+    #     yield get_driver
+    #     get_driver.quit()
     def test_add_goods_001(self,driver):
         LoginPage().login(driver, "jay")
         LeftMenuPage().click_level_one_menu(driver, "产品")
@@ -27,5 +27,3 @@ class TestAddGoods:
                                   goods_status="上架",
                                   bottom_button_name="提交")
         sleep(3)
-if __name__ == '__main__':
-    TestAddGoods().test_add_goods_001()
