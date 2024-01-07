@@ -20,6 +20,10 @@ class TestPytestMClass:
     pytest --collect-only
     -q 显示简洁的执行信息
     pytest -q -m  baidu
+    -n 指定打开几个浏览器
+    pytest -n 2
+    pytest -n auto 根据电脑的cpu核来打开浏览器个数
+    pytest -n auto --dist=loadscope 同一文件的测试用例有先后关系可能会导致第二个用例失败 不会同时执行
     """
     
     """
