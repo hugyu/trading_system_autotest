@@ -46,14 +46,18 @@ class TestPytestMClass:
         # driver=DriverConfig().driver_config()
         driver.get("https://cn.bing.com")
         sleep(3)
+        driver.quit()
     @pytest.mark.baidu
     def test_open_baidu(self,driver,scope_class):
         print("test_open_baidu")
         # driver=DriverConfig().driver_config()
         driver.get("https://www.baidu.com")
         sleep(3)
+        driver.quit()
     @pytest.mark.google
     def test_open_google(self,driver,scope_class):
         # driver=DriverConfig().driver_config()
         driver.get("https://www.google.com")
         sleep(3)
+        driver.quit()
+        

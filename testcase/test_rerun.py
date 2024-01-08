@@ -8,7 +8,7 @@ class TestRerun:
     --reruns-delay1 失败了间隔1s再跑
     或者采用pytest mark来使用
     """
-    @pytest.mark.flaky(reruns=5,reruns_delay=1)
+    # @pytest.mark.flaky(reruns=5,reruns_delay=1)
     def test_rerun(self):
         num=random.randint(1,3)
         print("num:",num)
