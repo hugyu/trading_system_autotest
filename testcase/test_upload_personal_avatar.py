@@ -9,7 +9,7 @@ class TestPersonalInfo:
          sleep(1)
          LeftMenuPage().click_level_two_menu(driver,"个人资料")
          sleep(2)
-         AccountPage().upload_avatar(driver,"goods.jpg")
+         AccountPage().upload_avatar(driver,"head_img.jpg")
          sleep(3)
          AccountPage().click_save(driver)
          sleep(3)

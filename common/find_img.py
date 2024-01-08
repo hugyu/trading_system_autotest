@@ -1,4 +1,4 @@
-import aircv as ac
+import cv2
 from common.tools import get_project_path, sep
 class FindImg:
     def img_imread(self, img_path):
@@ -7,7 +7,7 @@ class FindImg:
         :param img_path: 图片路径
         :return:
         """
-        return ac.imread(img_path)
+        return cv2.imread(img_path)
 
     def get_confidence(self, source_path, search_path):
         """
@@ -18,12 +18,11 @@ class FindImg:
         """
         # 读取原图
         img_src = self.img_imread(source_path)
-        print(img_src)
         # 读取需要查找的图片
         img_sch = self.img_imread(search_path)
-        print(img_sch)
-        result = ac.find_template(img_src, img_sch)
-        print(result)
+        result = cv2.matchTemplate(img_src, img_sch, cv2.TM_CCOEFF_NORMED)
+        _, confidence, _, _ = cv2.minMaxLoc(result)
+        return confidence
 
 if __name__ == '__main__':
     source_path = get_project_path() + sep(["img",  "source.jpg"], add_sep_before=True)
