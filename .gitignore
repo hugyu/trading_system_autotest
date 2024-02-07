@@ -35,3 +35,5 @@ settings.ini
 *.swp
 *.tmp
 *.pytest_cache
+UIreport
+report.html
